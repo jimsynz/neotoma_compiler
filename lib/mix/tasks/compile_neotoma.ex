@@ -3,13 +3,19 @@ defmodule Mix.Tasks.Compile.Neotoma do
   Custom mix task to compile the Neotoma-based template parser.
   """
   use Mix.Task
+  import Mix.Utils
 
   @shortdoc "Compile all `.peg` files in the `src` directory"
   def run(_) do
     Application.ensure_all_started(:neotoma)
 
-    "src/**/*.peg"
-    |> Path.wildcard()
+    files =
+      "src/**/*.peg"
+      |> Path.wildcard()
+
+    compiling_n(length(files), "peg")
+
+    files
     |> Enum.reduce_while(:ok, fn source, :ok ->
       target =
         source

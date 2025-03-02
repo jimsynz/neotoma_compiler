@@ -7,6 +7,7 @@ defmodule NeotomaCompiler.MixProject do
       version: "0.1.0",
       elixir: "~> 1.14",
       start_permanent: Mix.env() == :prod,
+      consolidate_protocols: Mix.env() != :dev,
       deps: deps()
     ]
   end
@@ -19,7 +20,10 @@ defmodule NeotomaCompiler.MixProject do
 
   defp deps do
     [
-      {:neotoma, "~> 1.7"}
+      {:neotoma, "~> 1.7"},
+      {:credo, "~> 1.0", only: [:dev, :test]},
+      {:ex_check, "~> 0.16", only: [:dev, :test]},
+      {:igniter, "~> 0.5", only: [:dev, :test]}
     ]
   end
 end
