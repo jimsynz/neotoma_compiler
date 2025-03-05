@@ -17,7 +17,7 @@ parsers for export as part of your mix package.
 def deps do
   [
     # ...
-    {:neotoma_compiler, "~> 0.1.1", only: [:dev, :test], runtime: false},
+    {:neotoma_compiler, "~> 0.1.2", only: [:dev, :test], runtime: false},
     # ...
   ]
 end
