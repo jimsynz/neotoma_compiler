@@ -29,7 +29,7 @@ defmodule Mix.Tasks.Compile.Neotoma do
       with {:ok, %{mtime: peg_mtime}} <- File.stat(source),
            peg_mtime <- mtime_to_integer(peg_mtime),
            {:ok, %{mtime: erl_mtime}} <- File.stat(target),
-           erl_mtime when erl_mtime > peg_mtime <- mtime_to_integer(erl_mtime) do
+           erl_mtime when erl_mtime >= peg_mtime <- mtime_to_integer(erl_mtime) do
         {:cont, :ok}
       else
         _ ->
