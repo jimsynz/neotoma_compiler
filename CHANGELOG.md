@@ -5,6 +5,15 @@ See [Conventional Commits](Https://conventionalcommits.org) for commit guideline
 
 <!-- changelog -->
 
+## v0.1.1 (2025-03-05)
+
+
+
+
+### Bug Fixes:
+
+* Don't recompile every time.
+
 ## v0.1.1 (2025-03-02)
 
 
