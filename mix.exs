@@ -47,7 +47,7 @@ defmodule NeotomaCompiler.MixProject do
       {:neotoma, "~> 1.7"},
       {:credo, "~> 1.0", only: [:dev, :test]},
       {:ex_check, "~> 0.16", only: [:dev, :test]},
-      {:ex_doc, "~> 0.38", only: [:dev, :test], runtime: false},
+      {:ex_doc, "~> 0.39", only: [:dev, :test], runtime: false},
       {:git_ops, "~> 2.0", only: [:dev, :test], runtime: false},
       {:igniter, "~> 0.6", only: [:dev, :test]}
     ]
