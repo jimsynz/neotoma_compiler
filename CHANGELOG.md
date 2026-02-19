@@ -5,6 +5,15 @@ See [Conventional Commits](Https://conventionalcommits.org) for commit guideline
 
 <!-- changelog -->
 
+## v0.1.3 (2026-02-19)
+
+
+
+
+### Bug Fixes:
+
+* reduce nesting depth in `Compile.Neotoma.run/1` by James Harton
+
 ## v0.1.2 (2025-03-05)
 
 
