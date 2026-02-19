@@ -15,32 +15,33 @@ defmodule Mix.Tasks.Compile.Neotoma do
 
     compiling_n(length(files), "peg")
 
-    files
-    |> Enum.reduce_while(:ok, fn source, :ok ->
-      target =
-        source
-        |> Path.basename(".peg")
-        |> then(fn basename ->
-          source
-          |> Path.dirname()
-          |> Path.join("#{basename}.erl")
-        end)
-
-      with {:ok, %{mtime: peg_mtime}} <- File.stat(source),
-           peg_mtime <- mtime_to_integer(peg_mtime),
-           {:ok, %{mtime: erl_mtime}} <- File.stat(target),
-           erl_mtime when erl_mtime >= peg_mtime <- mtime_to_integer(erl_mtime) do
-        {:cont, :ok}
-      else
-        _ ->
-          source
-          |> compile_file()
-          |> case do
-            :ok -> {:cont, :ok}
-            {:error, reason} -> {:halt, {:error, reason}}
-          end
-      end
+    Enum.reduce_while(files, :ok, fn source, :ok ->
+      maybe_compile(source)
     end)
+  end
+
+  defp maybe_compile(source) do
+    target =
+      source
+      |> Path.basename(".peg")
+      |> then(fn basename ->
+        source
+        |> Path.dirname()
+        |> Path.join("#{basename}.erl")
+      end)
+
+    with {:ok, %{mtime: peg_mtime}} <- File.stat(source),
+         peg_mtime <- mtime_to_integer(peg_mtime),
+         {:ok, %{mtime: erl_mtime}} <- File.stat(target),
+         erl_mtime when erl_mtime >= peg_mtime <- mtime_to_integer(erl_mtime) do
+      {:cont, :ok}
+    else
+      _ ->
+        case compile_file(source) do
+          :ok -> {:cont, :ok}
+          {:error, reason} -> {:halt, {:error, reason}}
+        end
+    end
   end
 
   defp compile_file(file) do
